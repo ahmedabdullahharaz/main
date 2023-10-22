@@ -1,18 +1,20 @@
-node{
-    git branch:  'main', url: 'https://github.com/ahmedabdullahharaz/main.git'
-    stage('build'){
-        try{
-            sh'echo "build stage" '
+pipeline{
+    agent any
+    stages{
+        stage('build'){
+            steps{
+                script{
+                    echo "build in progress"
+                }
+            }
         }
-        catch(Exception e){
-            sh'echo "excetion found"'
-            throw e
+        stage('test'){
+            steps{
+                script{
+                    echo "test in progress"
+                }
+            }
         }
     }
-    stage('test'){
-        if (env.BRANCH_NAME == "feat"){
-            sh'echo " test stage"'
-        }
-        else{sh'echo "skip test stage"'}
-    }
+
 }
