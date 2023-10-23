@@ -4,7 +4,7 @@ pipeline{
         stage('build'){
             steps{
                 script{
-                    echo "build in progress"
+                    sh 'mvn clean package'
                 }
             }
         }
@@ -16,5 +16,11 @@ pipeline{
             }
         }
     }
+post {
+  success {
+            slackSend channel: '#jenkins-ci', message: "success ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", teamDomain: 'harazlabs', tokenCredentialId: 'slack-notification'
+    // One or more steps need to be included within each condition's block.
+  }
+}
 
 }
